@@ -1,8 +1,11 @@
 package com.rsudec.factory_android_test.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class Article {
+public class Article implements Parcelable {
     @SerializedName("author")
     String author;
     @SerializedName("title")
@@ -15,6 +18,27 @@ public class Article {
     String urlToImage;
     @SerializedName("publishedAt")
     String publishedAt;
+
+    protected Article(Parcel in) {
+        author = in.readString();
+        title = in.readString();
+        description = in.readString();
+        url = in.readString();
+        urlToImage = in.readString();
+        publishedAt = in.readString();
+    }
+
+    public static final Creator<Article> CREATOR = new Creator<Article>() {
+        @Override
+        public Article createFromParcel(Parcel in) {
+            return new Article(in);
+        }
+
+        @Override
+        public Article[] newArray(int size) {
+            return new Article[size];
+        }
+    };
 
     public String getAuthor() {
         return author;
@@ -63,4 +87,24 @@ public class Article {
     public void setPublishedAt(String publishedAt) {
         this.publishedAt = publishedAt;
     }
+
+
+    @Override
+    public int describeContents() {
+        return this.hashCode();
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+
+        parcel.writeString(author);
+        parcel.writeString(title);
+        parcel.writeString(description);
+        parcel.writeString(url);
+        parcel.writeString(urlToImage);
+
+
+        parcel.writeString(publishedAt);
+    }
+
 }

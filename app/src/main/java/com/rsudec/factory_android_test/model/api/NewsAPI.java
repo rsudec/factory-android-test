@@ -1,4 +1,6 @@
-package com.rsudec.factory_android_test.model;
+package com.rsudec.factory_android_test.model.api;
+
+import com.rsudec.factory_android_test.model.ResponseAPI;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
